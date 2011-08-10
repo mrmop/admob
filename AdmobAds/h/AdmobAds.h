@@ -31,6 +31,8 @@ s3eResult ShowAds();
 
 s3eResult HideAds();
 
+bool hasAdLoaded();
+
 S3E_END_C_DECL
 
 #endif /* !S3E_EXT_ADMOBADS_H */
