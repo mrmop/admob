@@ -14,6 +14,7 @@
 typedef  s3eResult(*InitAds_t)(const char* pub_id);
 typedef  s3eResult(*ShowAds_t)();
 typedef  s3eResult(*HideAds_t)();
+typedef       bool(*hasAdLoaded_t)();
 
 /**
  * struct that gets filled in by AdmobAdsRegister
@@ -23,6 +24,7 @@ typedef struct AdmobAdsFuncs
     InitAds_t m_InitAds;
     ShowAds_t m_ShowAds;
     HideAds_t m_HideAds;
+    hasAdLoaded_t m_hasAdLoaded;
 } AdmobAdsFuncs;
 
 static AdmobAdsFuncs g_Ext;
@@ -95,4 +97,14 @@ s3eResult HideAds()
         return S3E_RESULT_ERROR;
 
     return g_Ext.m_HideAds();
+}
+
+bool hasAdLoaded()
+{
+    IwTrace(ADMOBADS_VERBOSE, ("calling AdmobAds[3] func: hasAdLoaded"));
+
+    if (!_extLoad())
+        return false;
+
+    return g_Ext.m_hasAdLoaded();
 }
